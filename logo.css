@@ -15,3 +15,27 @@
   margin-left: 0;
   color: var(--text);
 }
+
+html,
+body,
+button,
+input,
+textarea,
+select,
+* {
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+}
+
+em,
+i,
+cite,
+dfn,
+var {
+  font-style: normal !important;
+}
+
+.section-title em,
+.contact h2 em {
+  font-weight: 600;
+  letter-spacing: -0.06em;
+}
