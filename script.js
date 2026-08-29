@@ -23,6 +23,7 @@ if(!reduced){
   document.querySelectorAll('.reveal').forEach(el=>gsap.from(el,{y:45,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}}));
   document.querySelectorAll('.image-reveal').forEach(w=>{gsap.to(w,{clipPath:'inset(0 0 0% 0)',duration:1.2,ease:'power4.inOut',scrollTrigger:{trigger:w,start:'top 85%',once:true}});const im=w.querySelector('img');if(im)gsap.from(im,{scale:1.15,duration:1.5,ease:'power3.out',scrollTrigger:{trigger:w,start:'top 85%',once:true}})});
   gsap.to('.ticker>div',{xPercent:-50,ease:'none',scrollTrigger:{trigger:'.ticker',start:'top bottom',end:'bottom top',scrub:1}});
+  gsap.fromTo('.contact',{backgroundPosition:'center, 100% 58%'},{backgroundPosition:'center, 88% 42%',ease:'none',scrollTrigger:{trigger:'.contact',start:'top bottom',end:'bottom top',scrub:1.2}});
   document.querySelectorAll('.project-img img').forEach(im=>gsap.fromTo(im,{yPercent:-4},{yPercent:4,ease:'none',scrollTrigger:{trigger:im.parentElement,start:'top bottom',end:'bottom top',scrub:1}}));
   const cursor=document.querySelector('.cursor');addEventListener('pointermove',e=>gsap.to(cursor,{x:e.clientX,y:e.clientY,duration:.17}));
   document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>gsap.to(cursor,{scale:3,duration:.2}));el.addEventListener('mouseleave',()=>gsap.to(cursor,{scale:1,duration:.2}))});

@@ -39,3 +39,37 @@ var {
   font-weight: 600;
   letter-spacing: -0.06em;
 }
+
+.contact {
+  isolation: isolate;
+  background-color: #08080d;
+  background-image:
+    linear-gradient(90deg, rgba(8, 8, 13, 0.96) 0%, rgba(8, 8, 13, 0.78) 42%, rgba(8, 8, 13, 0.18) 100%),
+    url("assets/contact-space-bg.png");
+  background-position: center, 100% 50%;
+  background-size: cover, cover;
+  background-repeat: no-repeat;
+  color: var(--text);
+}
+
+.contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(8, 8, 13, 0.18), rgba(8, 8, 13, 0.52));
+}
+
+.contact .inline-link {
+  border-bottom-color: rgba(244, 241, 250, 0.7);
+}
+
+@media (max-width: 720px) {
+  .contact {
+    background-image:
+      linear-gradient(180deg, rgba(8, 8, 13, 0.72), rgba(8, 8, 13, 0.94)),
+      url("assets/contact-space-bg.png");
+    background-position: center, 70% 50%;
+  }
+}
