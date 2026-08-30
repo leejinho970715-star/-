@@ -18,8 +18,16 @@ if(!reduced){
   const lenis=new Lenis({duration:1.15,smoothWheel:true,wheelMultiplier:.9});
   lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
   document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();lenis.scrollTo(a.getAttribute('href'),{offset:-60})}));
-  gsap.timeline({defaults:{ease:'power4.out'}}).from('.nav',{y:-25,opacity:0,duration:1}).from('.hero h1 .line>span',{yPercent:115,duration:1.15,stagger:.13},'-.65').from('.planet',{scale:0,rotate:-40,duration:1.5},'-=1.25').from('.hero .eyebrow,.hero-foot',{opacity:0,y:25,duration:.8,stagger:.12},'-=.75');
-  gsap.to('.planet',{yPercent:95,rotate:50,scale:.75,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1.2}});
+  gsap.timeline({defaults:{ease:'power4.out'}}).from('.nav',{y:-25,opacity:0,duration:1}).from('.hero h1 .line>span',{yPercent:115,duration:1.15,stagger:.13},'-.65').from('.hero-sequence',{scale:.7,rotate:-12,opacity:0,duration:1.5},'-=1.25').from('.hero .eyebrow,.hero-foot',{opacity:0,y:25,duration:.8,stagger:.12},'-=.75');
+  const sequenceFrames=[...document.querySelectorAll('.sequence-frame')];
+  const sequenceLabels=[...document.querySelectorAll('.sequence-labels span')];
+  const sequenceCount=document.querySelector('.sequence-count');
+  const sequenceProgress=document.querySelector('.sequence-progress i');
+  gsap.set(sequenceFrames,{autoAlpha:0,scale:.72,rotation:-8});
+  gsap.set(sequenceFrames[0],{autoAlpha:1,scale:1,rotation:0});
+  const setSequenceStage=(index)=>{sequenceLabels.forEach((label,i)=>label.classList.toggle('active',i===index));sequenceCount.textContent=String(index+1).padStart(2,'0')+' / 04'};
+  const heroSequence=gsap.timeline({scrollTrigger:{trigger:'.hero',start:'top top',end:'+=400%',pin:true,scrub:1,anticipatePin:1,invalidateOnRefresh:true,snap:{snapTo:1/3,duration:{min:.12,max:.35},delay:.05},onUpdate:self=>{const index=Math.min(3,Math.round(self.progress*3));setSequenceStage(index);gsap.set(sequenceProgress,{scaleX:self.progress})}}});
+  for(let i=1;i<sequenceFrames.length;i++){const at=i-1;heroSequence.to(sequenceFrames[i-1],{autoAlpha:0,scale:.68,rotation:8,duration:.42,ease:'power2.in'},at).fromTo(sequenceFrames[i],{autoAlpha:0,scale:1.22,rotation:-10},{autoAlpha:1,scale:1,rotation:0,duration:.58,ease:'power3.out'},at+.22)}
   document.querySelectorAll('.reveal').forEach(el=>gsap.from(el,{y:45,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}}));
   document.querySelectorAll('.image-reveal').forEach(w=>{gsap.to(w,{clipPath:'inset(0 0 0% 0)',duration:1.2,ease:'power4.inOut',scrollTrigger:{trigger:w,start:'top 85%',once:true}});const im=w.querySelector('img');if(im)gsap.from(im,{scale:1.15,duration:1.5,ease:'power3.out',scrollTrigger:{trigger:w,start:'top 85%',once:true}})});
   gsap.to('.ticker>div',{xPercent:-50,ease:'none',scrollTrigger:{trigger:'.ticker',start:'top bottom',end:'bottom top',scrub:1}});
