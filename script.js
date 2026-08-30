@@ -45,7 +45,8 @@ tabs.forEach(tab=>tab.addEventListener('click',()=>{tabs.forEach(t=>{t.classList
 const profileTrigger=document.querySelector('.portrait');
 const profileModal=document.querySelector('#profile-modal');
 const profileClose=profileModal?.querySelector('.modal-close');
-const closeProfileModal=()=>{if(profileModal?.open)profileModal.close()};
-profileTrigger?.addEventListener('click',()=>{profileModal.showModal();if(!reduced)gsap.fromTo('.profile-modal-shell',{opacity:0,scale:.94,y:20},{opacity:1,scale:1,y:0,duration:.42,ease:'power3.out'})});
+const closeProfileModal=()=>{if(!profileModal||profileModal.hidden)return;profileModal.hidden=true;document.body.classList.remove('modal-open');profileTrigger?.focus()};
+profileTrigger?.addEventListener('click',()=>{profileModal.hidden=false;document.body.classList.add('modal-open');profileClose?.focus();if(!reduced)gsap.fromTo('.profile-modal-shell',{opacity:0,scale:.94,y:20},{opacity:1,scale:1,y:0,duration:.42,ease:'power3.out'})});
 profileClose?.addEventListener('click',closeProfileModal);
 profileModal?.addEventListener('click',event=>{if(event.target===profileModal)closeProfileModal()});
+document.addEventListener('keydown',event=>{if(event.key==='Escape')closeProfileModal()});
