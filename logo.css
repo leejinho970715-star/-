@@ -73,3 +73,8 @@ var {
     background-position: center, 70% 50%;
   }
 }
+
+.project-img img {
+  object-fit: contain !important;
+  background: #0b0a12;
+}
