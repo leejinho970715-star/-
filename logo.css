@@ -444,3 +444,140 @@ var {
     height: 41vh;
   }
 }
+
+.portrait {
+  width: 100%;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+  cursor: zoom-in;
+}
+
+.portrait-expand {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  z-index: 2;
+  padding: 9px 12px;
+  border: 1px solid rgba(179, 165, 220, 0.4);
+  border-radius: 999px;
+  background: rgba(8, 8, 13, 0.78);
+  color: var(--text);
+  backdrop-filter: blur(12px);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.25s, transform 0.25s, border-color 0.25s;
+}
+
+.portrait:hover .portrait-expand,
+.portrait:focus-visible .portrait-expand {
+  opacity: 1;
+  transform: none;
+  border-color: var(--purple2);
+}
+
+.profile-modal {
+  width: min(94vw, 980px);
+  max-width: none;
+  height: min(92svh, 900px);
+  max-height: none;
+  padding: 0;
+  border: 1px solid rgba(179, 165, 220, 0.34);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #0b0a12;
+  color: var(--text);
+  box-shadow: 0 35px 100px rgba(0, 0, 0, 0.65);
+}
+
+.profile-modal::backdrop {
+  background: rgba(3, 3, 7, 0.84);
+  backdrop-filter: blur(12px);
+}
+
+.profile-modal-shell {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.profile-modal header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.profile-modal header span {
+  color: var(--purple2);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+}
+
+.profile-modal h2 {
+  margin: 4px 0 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.modal-close {
+  flex: 0 0 auto;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 11px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.modal-close:hover {
+  border-color: var(--purple2);
+  background: rgba(126, 110, 169, 0.18);
+}
+
+.profile-modal-image {
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  overflow: auto;
+  padding: 22px;
+  background: radial-gradient(circle at center, rgba(126, 110, 169, 0.15), transparent 68%);
+}
+
+.profile-modal-image img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.38);
+}
+
+@media (max-width: 600px) {
+  .portrait-expand {
+    opacity: 1;
+    transform: none;
+  }
+
+  .profile-modal {
+    width: calc(100vw - 20px);
+    height: calc(100svh - 20px);
+    border-radius: 13px;
+  }
+
+  .profile-modal header {
+    padding: 13px 14px;
+  }
+
+  .profile-modal-image {
+    padding: 10px;
+  }
+}

@@ -41,3 +41,11 @@ if(!reduced){
 const tabs=[...document.querySelectorAll('.story-tabs button')];
 const panels=[...document.querySelectorAll('.story-panel')];
 tabs.forEach(tab=>tab.addEventListener('click',()=>{tabs.forEach(t=>{t.classList.remove('active');t.setAttribute('aria-selected','false')});panels.forEach(p=>{p.classList.remove('active');p.style.opacity=0});tab.classList.add('active');tab.setAttribute('aria-selected','true');const p=document.querySelector('#'+tab.dataset.tab);p.classList.add('active');if(reduced)p.style.opacity=1;else gsap.fromTo(p,{opacity:0,y:25},{opacity:1,y:0,duration:.6,ease:'power3.out'});ScrollTrigger.refresh()}));
+
+const profileTrigger=document.querySelector('.portrait');
+const profileModal=document.querySelector('#profile-modal');
+const profileClose=profileModal?.querySelector('.modal-close');
+const closeProfileModal=()=>{if(profileModal?.open)profileModal.close()};
+profileTrigger?.addEventListener('click',()=>{profileModal.showModal();if(!reduced)gsap.fromTo('.profile-modal-shell',{opacity:0,scale:.94,y:20},{opacity:1,scale:1,y:0,duration:.42,ease:'power3.out'})});
+profileClose?.addEventListener('click',closeProfileModal);
+profileModal?.addEventListener('click',event=>{if(event.target===profileModal)closeProfileModal()});
