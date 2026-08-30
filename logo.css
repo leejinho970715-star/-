@@ -78,3 +78,11 @@ var {
   object-fit: contain !important;
   background: #0b0a12;
 }
+
+.portrait img {
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain !important;
+  object-position: center;
+  background: #0b0a12;
+}
