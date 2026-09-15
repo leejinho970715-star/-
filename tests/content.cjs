@@ -14,4 +14,17 @@ for (const url of ['https://gpters-khaki.vercel.app/', 'https://n-seoul-main.ver
 for (const id of ['1Y1zDJps_9hbn9HsMFzslLdpoSL1ibTar', '1BS1de4a1T29yio-ib_vo8mzGgqly-SOj', '1F2LgAqJVbchIqUzNDiqAiSnE5XYNs1sI']) assert(html.includes(id));
 const titles = [...html.matchAll(/<div class="project-copy reveal"><span>[^<]+<\/span><h3>([^<]+)<\/h3>/g)].map(m => m[1]);
 assert.deepEqual(titles, ['LKBROTHERS','I-ONE Softbank','GPTers Renewal','N Seoul Tower','Space World','SYNAPSE LABS','CLOUD LABS','Airbnb Marketing','N서울타워 팀프로젝트']);
-console.log('PASS: 9 projects, source order, updated links, local assets, no FAVIOG references.');
+const directory = html.match(/<section class="internship-sites"[\s\S]*?<\/section>/)[0];
+const directoryLinks = [...directory.matchAll(/<a href="([^"]+)"[^>]*><span><strong>([^<]+)<\/strong>/g)].map(m => [m[2],m[1]]);
+assert.deepEqual(directoryLinks, [
+  ['SPLA LABS', 'https://spla-labs.vercel.app/'],
+  ['TODL', 'https://splalabs.xyz/todl'],
+  ['엘케이브라더스', 'https://lkbrothers.vercel.app/'],
+  ['AX/DX 레벨 체크리스트', 'https://axdx-test.vercel.app/'],
+  ['아이원디지털웨어', 'https://digital-ware-two.vercel.app/'],
+  ['아이원소프트뱅크', 'https://soft-bank-beta.vercel.app/'],
+  ['이음스퀘어', 'https://eeumm.vercel.app/']
+]);
+assert(html.indexOf('class="internship-sites"') > html.indexOf('id="internship-work"'));
+assert(html.indexOf('class="internship-sites"') < html.indexOf('id="personal-work"'));
+console.log('PASS: 9 projects, 7 company directory links, source order, assets, no FAVIOG references.');

@@ -609,6 +609,23 @@ body.modal-open {
 }
 
 /* September portfolio refresh: readable groups and uncropped source artwork. */
+.internship-sites { margin: 0 0 90px; padding: clamp(24px, 4vw, 54px); border: 1px solid var(--line); border-radius: 20px; background: linear-gradient(135deg, #7e6ea914, #08080d88); }
+.internship-sites > header .overline { display: block; margin-bottom: 18px; }
+.internship-sites > header h3 { margin: 0 0 18px; font-size: clamp(25px, 3vw, 42px); letter-spacing: -.04em; word-break: keep-all; }
+.internship-sites > header p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.8; word-break: keep-all; }
+.company-sites-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 70px); margin-top: 44px; }
+.company-sites header > span { font-size: 10px; color: var(--purple2); letter-spacing: .12em; }
+.company-sites h4 { margin: 12px 0 8px; font-size: 23px; font-weight: 600; letter-spacing: -.03em; }
+.company-sites header p { color: var(--muted); font-size: 12px; margin: 0 0 24px; }
+.company-sites ul { padding: 0; margin: 0; list-style: none; border-top: 1px solid var(--line); }
+.company-sites li { border-bottom: 1px solid var(--line); }
+.company-sites a { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 12px; border-radius: 6px; transition: background .2s, color .2s; }
+.company-sites a strong { display: block; font-size: clamp(15px, 1.5vw, 20px); font-weight: 500; overflow-wrap: anywhere; }
+.company-sites a small { display: block; color: var(--muted); font-size: 12px; line-height: 1.5; margin-top: 8px; }
+.company-sites a > span:last-child { color: var(--purple2); font-size: 24px; transition: transform .2s; }
+.company-sites a:hover, .company-sites a:focus-visible { color: var(--purple2); background: #7e6ea922; }
+.company-sites a:hover > span:last-child { transform: translate(3px, -3px); }
+@media (max-width: 720px) { .company-sites-grid { grid-template-columns: 1fr; gap: 36px; } .internship-sites { margin-bottom: 55px; } }
 .award-title { display: block; border: 0; padding: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; line-height: inherit; text-align: left; cursor: zoom-in; transition: color .2s; }
 .award-title:hover, .award-title:focus-visible { color: var(--purple2); }
 .award-hint { display: block; margin-top: 14px; font-size: 11px; font-weight: 400; letter-spacing: .04em; color: var(--muted); }
