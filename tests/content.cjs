@@ -15,7 +15,8 @@ for (const id of ['1Y1zDJps_9hbn9HsMFzslLdpoSL1ibTar', '1BS1de4a1T29yio-ib_vo8mz
 const titles = [...html.matchAll(/<div class="project-copy reveal"><span>[^<]+<\/span><h3>([^<]+)<\/h3>/g)].map(m => m[1]);
 assert.deepEqual(titles, ['LKBROTHERS','I-ONE Softbank','GPTers Renewal','N Seoul Tower','Space World','SYNAPSE LABS','CLOUD LABS','Airbnb Marketing','N서울타워 팀프로젝트']);
 const directory = html.match(/<section class="internship-sites"[\s\S]*?<\/section>/)[0];
-const directoryLinks = [...directory.matchAll(/<a href="([^"]+)"[^>]*><span><strong>([^<]+)<\/strong>/g)].map(m => [m[2],m[1]]);
+const directoryLinks = [...directory.matchAll(/<a\b[^>]*\bhref="([^"]+)"[^>]*><span><strong>([^<]+)<\/strong>/g)].map(m => [m[2],m[1]]);
+assert.equal((directory.match(/data-og-image="https:\/\//g)||[]).length, 7);
 assert.deepEqual(directoryLinks, [
   ['SPLA LABS', 'https://spla-labs.vercel.app/'],
   ['TODL', 'https://splalabs.xyz/todl'],

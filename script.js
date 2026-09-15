@@ -115,3 +115,40 @@ document.querySelectorAll('.award-title').forEach(title=>{
 addEventListener('scroll',hideAwardPreview,{passive:true});
 addEventListener('resize',hideAwardPreview);
 document.addEventListener('keydown',event=>{if(event.key==='Escape')hideAwardPreview()});
+
+// Resolved OG artwork is declared in HTML; no cross-origin metadata requests at hover time.
+const sitePreview=document.querySelector('.site-preview');
+const sitePreviewImage=sitePreview.querySelector('img');
+let activeSite=null;
+function hideSitePreview(){activeSite=null;sitePreview.classList.remove('is-visible');}
+function positionSitePreview(x,y){
+  const {width,height}=sitePreview.getBoundingClientRect();
+  const left=x+24+width<=innerWidth-16 ? x+24 : x-width-24;
+  sitePreview.style.left=Math.max(16,Math.min(left,innerWidth-width-16))+'px';
+  sitePreview.style.top=Math.max(16,Math.min(y-height/2,innerHeight-height-16))+'px';
+}
+sitePreviewImage.addEventListener('load',()=>{if(activeSite)sitePreview.classList.add('is-visible')});
+sitePreviewImage.addEventListener('error',()=>{
+  // Avoid showing a broken image or retaining the previous project's artwork.
+  sitePreview.classList.remove('is-visible');
+});
+document.querySelectorAll('.company-sites a[data-og-image]').forEach(link=>{
+  function show(x,y){
+    if(!hoverPointer.matches)return;
+    activeSite=link;
+    sitePreview.classList.remove('is-visible');
+    sitePreview.querySelector('span').textContent=link.querySelector('strong').textContent+' · '+link.dataset.previewKind;
+    sitePreviewImage.src=link.dataset.ogImage;
+    positionSitePreview(x,y);
+    if(sitePreviewImage.complete && sitePreviewImage.naturalWidth)sitePreview.classList.add('is-visible');
+  }
+  link.addEventListener('pointerenter',event=>show(event.clientX,event.clientY));
+  link.addEventListener('pointermove',event=>{if(activeSite===link)positionSitePreview(event.clientX,event.clientY)});
+  link.addEventListener('pointerleave',hideSitePreview);
+  link.addEventListener('focus',()=>{const rect=link.getBoundingClientRect();show(rect.right,rect.top+rect.height/2)});
+  link.addEventListener('blur',hideSitePreview);
+  link.addEventListener('click',hideSitePreview);
+});
+addEventListener('scroll',hideSitePreview,{passive:true});
+addEventListener('resize',hideSitePreview);
+document.addEventListener('keydown',event=>{if(event.key==='Escape')hideSitePreview()});

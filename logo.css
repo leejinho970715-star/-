@@ -609,6 +609,11 @@ body.modal-open {
 }
 
 /* September portfolio refresh: readable groups and uncropped source artwork. */
+.site-preview { position: fixed; left: 0; top: 0; z-index: 60; width: min(360px, calc(100vw - 32px)); padding: 10px; border: 1px solid var(--purple2); border-radius: 12px; background: #11101b; box-shadow: 0 20px 60px #000a; pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(8px) scale(.97); transition: opacity .2s, visibility .2s, transform .2s; }
+.site-preview.is-visible { opacity: 1; visibility: visible; transform: none; }
+.site-preview img { width: 100%; height: min(190px, calc(100svh - 100px)); object-fit: contain; background: #08080d; border-radius: 6px; }
+.site-preview span { display: block; padding: 10px 3px 2px; font-size: 11px; color: var(--purple2); line-height: 1.5; }
+@media (hover: none) { .site-preview { display: none; } }
 .internship-sites { margin: 0 0 90px; padding: clamp(24px, 4vw, 54px); border: 1px solid var(--line); border-radius: 20px; background: linear-gradient(135deg, #7e6ea914, #08080d88); }
 .internship-sites > header .overline { display: block; margin-bottom: 18px; }
 .internship-sites > header h3 { margin: 0 0 18px; font-size: clamp(25px, 3vw, 42px); letter-spacing: -.04em; word-break: keep-all; }
