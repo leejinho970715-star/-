@@ -15,6 +15,12 @@ for (const id of ['1Y1zDJps_9hbn9HsMFzslLdpoSL1ibTar', '1BS1de4a1T29yio-ib_vo8mz
 const titles = [...html.matchAll(/<div class="project-copy reveal"><span>[^<]+<\/span><h3>([^<]+)<\/h3>/g)].map(m => m[1]);
 assert.deepEqual(titles, ['LKBROTHERS','I-ONE Softbank','GPTers Renewal','N Seoul Tower','Space World','SYNAPSE LABS','CLOUD LABS','Airbnb Marketing','N서울타워 팀프로젝트']);
 const directory = html.match(/<section class="internship-sites"[\s\S]*?<\/section>/)[0];
+const archive = html.match(/<div class="archive reveal">[^\n]+/)[0];
+assert(archive.includes('<span>KDT 프로젝트</span>'));
+assert(archive.includes('KDT 개인 프로젝트 PDF'));
+assert(archive.includes('N서울타워 팀프로젝트 결과보고서 PDF'));
+assert(archive.includes('https://drive.google.com/file/d/1F2LgAqJVbchIqUzNDiqAiSnE5XYNs1sI/view?usp=sharing'));
+assert.equal((archive.match(/<a /g)||[]).length, 2);
 const directoryLinks = [...directory.matchAll(/<a\b[^>]*\bhref="([^"]+)"[^>]*><span><strong>([^<]+)<\/strong>/g)].map(m => [m[2],m[1]]);
 assert.equal((directory.match(/data-og-image="https:\/\//g)||[]).length, 7);
 assert.deepEqual(directoryLinks, [
