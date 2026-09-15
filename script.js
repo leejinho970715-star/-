@@ -31,8 +31,11 @@ if(!reduced && motionAvailable){
   gsap.set(sequenceFrames,{autoAlpha:0,scale:.72,rotation:-8});
   gsap.set(sequenceFrames[0],{autoAlpha:1,scale:1,rotation:0});
   const setSequenceStage=(index)=>{sequenceLabels.forEach((label,i)=>label.classList.toggle('active',i===index));sequenceCount.textContent=String(index+1).padStart(2,'0')+' / 04'};
-  const heroSequence=gsap.timeline({scrollTrigger:{trigger:'.hero',start:'top top',end:'+=400%',pin:true,scrub:1,anticipatePin:1,invalidateOnRefresh:true,snap:{snapTo:1/3,duration:{min:.12,max:.35},delay:.05},onUpdate:self=>{const index=Math.min(3,Math.round(self.progress*3));setSequenceStage(index);gsap.set(sequenceProgress,{scaleX:self.progress})}}});
+  gsap.matchMedia().add({spacious:'(min-height: 701px)',compact:'(max-height: 700px)',desktop:'(min-width: 1101px)'},context=>{
+  const pinHero=context.conditions.spacious || context.conditions.desktop;
+  const heroSequence=gsap.timeline({scrollTrigger:{trigger:'.hero',start:'top top',end:pinHero?'+=400%':'bottom top',pin:pinHero,scrub:1,anticipatePin:1,invalidateOnRefresh:true,snap:{snapTo:1/3,duration:{min:.12,max:.35},delay:.05},onUpdate:self=>{const index=Math.min(3,Math.round(self.progress*3));setSequenceStage(index);gsap.set(sequenceProgress,{scaleX:self.progress})}}});
   for(let i=1;i<sequenceFrames.length;i++){const at=i-1;heroSequence.to(sequenceFrames[i-1],{autoAlpha:0,scale:.68,rotation:8,duration:.42,ease:'power2.in'},at).fromTo(sequenceFrames[i],{autoAlpha:0,scale:1.22,rotation:-10},{autoAlpha:1,scale:1,rotation:0,duration:.58,ease:'power3.out'},at+.22)}
+  });
   document.querySelectorAll('.reveal').forEach(el=>gsap.from(el,{y:45,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}}));
   document.querySelectorAll('.image-reveal').forEach(w=>{gsap.to(w,{clipPath:'inset(0 0 0% 0)',duration:1.2,ease:'power4.inOut',scrollTrigger:{trigger:w,start:'top 85%',once:true}});});
   gsap.to('.ticker>div',{xPercent:-50,ease:'none',scrollTrigger:{trigger:'.ticker',start:'top bottom',end:'bottom top',scrub:1}});
