@@ -608,6 +608,23 @@ body.modal-open {
   font-size: 10px;
 }
 
+/* Hero type scale: 60pt headline / 40pt statement at full desktop width. */
+@media (min-width: 851px) {
+  .hero h1 { font-size: clamp(48px, 6.4vw, 80px); line-height: 1.12; }
+  .hero-foot { grid-template-columns: auto 1fr; gap: 40px; margin-top: 64px; }
+  .hero-foot p { justify-self: end; font-size: clamp(30px, 4.267vw, 53.333px); line-height: 1.35; letter-spacing: -.045em; font-weight: 500; color: var(--text); }
+  .hero-foot .scroll { display: none; }
+  .hero-sequence { width: 32vw; height: min(50vh, 480px); top: 8vh; }
+}
+@media (max-width: 850px) {
+  .hero { justify-content: flex-start; }
+  .hero .eyebrow { order: 0; }
+  .hero h1 { order: 1; }
+  .hero-sequence { order: 2; position: relative; top: auto; right: auto; left: auto; width: 100%; height: clamp(220px, 34svh, 360px); flex-shrink: 0; margin: 20px 0; }
+  .hero-foot { order: 3; position: relative; left: auto; right: auto; bottom: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-top: 0; width: 100%; }
+  .hero-foot > p { display: block; font-size: clamp(21px, 3.8vw, 32px); line-height: 1.4; letter-spacing: -.035em; font-weight: 500; color: var(--text); }
+}
+
 /* September portfolio refresh: readable groups and uncropped source artwork. */
 .site-preview { position: fixed; left: 0; top: 0; z-index: 60; width: min(360px, calc(100vw - 32px)); padding: 10px; border: 1px solid var(--purple2); border-radius: 12px; background: #11101b; box-shadow: 0 20px 60px #000a; pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(8px) scale(.97); transition: opacity .2s, visibility .2s, transform .2s; }
 .site-preview.is-visible { opacity: 1; visibility: visible; transform: none; }
