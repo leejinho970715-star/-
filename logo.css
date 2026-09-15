@@ -609,6 +609,14 @@ body.modal-open {
 }
 
 /* September portfolio refresh: readable groups and uncropped source artwork. */
+.award-title { display: block; border: 0; padding: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; line-height: inherit; text-align: left; cursor: zoom-in; transition: color .2s; }
+.award-title:hover, .award-title:focus-visible { color: var(--purple2); }
+.award-hint { display: block; margin-top: 14px; font-size: 11px; font-weight: 400; letter-spacing: .04em; color: var(--muted); }
+.award-preview { position: fixed; z-index: 60; left: 0; top: 0; width: min(280px, calc(100vw - 32px)); padding: 12px; border: 1px solid var(--purple2); border-radius: 12px; background: #11101b; box-shadow: 0 20px 60px #0009; pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(10px) scale(.96); transition: opacity .18s, transform .18s, visibility .18s; }
+.award-preview.is-visible { opacity: 1; visibility: visible; transform: none; }
+.award-preview img { width: 100%; height: min(330px, calc(100svh - 110px)); object-fit: contain; background: #08080d; }
+.award-preview > span { display: block; margin-top: 10px; color: var(--purple2); font-size: 11px; line-height: 1.5; }
+@media (hover: none) { .award-preview { display: none; } }
 html, body { overflow-x: clip; }
 .about-copy .section-title { font-size: clamp(30px, 4.2vw, 64px); word-break: keep-all; }
 .body, .project-copy p { word-break: keep-all; overflow-wrap: break-word; }

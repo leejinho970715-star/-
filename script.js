@@ -86,3 +86,32 @@ document.addEventListener('keydown',event=>{
   if(event.key==='Escape')closeProfileModal();
   if(event.key==='Tab'){event.preventDefault();profileClose.focus();}
 });
+
+// The same certificate mapping drives hover previews and click/touch modals.
+const awardPreview=document.querySelector('.award-preview');
+const hoverPointer=matchMedia('(hover: hover) and (pointer: fine)');
+function hideAwardPreview(){awardPreview?.classList.remove('is-visible');}
+function positionAwardPreview(x,y){
+  const {width,height}=awardPreview.getBoundingClientRect();
+  const left=x+24+width<=innerWidth-16 ? x+24 : x-width-24;
+  awardPreview.style.left=Math.max(16,Math.min(left,innerWidth-width-16))+'px';
+  awardPreview.style.top=Math.max(16,Math.min(y-height/2,innerHeight-height-16))+'px';
+}
+document.querySelectorAll('.award-title').forEach(title=>{
+  function show(x,y){
+    if(!hoverPointer.matches || !profileModal.hidden)return;
+    awardPreview.querySelector('img').src=title.dataset.document;
+    awardPreview.querySelector('span').textContent=title.dataset.title;
+    positionAwardPreview(x,y);
+    awardPreview.classList.add('is-visible');
+  }
+  title.addEventListener('pointerenter',event=>show(event.clientX,event.clientY));
+  title.addEventListener('pointermove',event=>{if(awardPreview.classList.contains('is-visible'))positionAwardPreview(event.clientX,event.clientY)});
+  title.addEventListener('pointerleave',hideAwardPreview);
+  title.addEventListener('focus',()=>{const rect=title.getBoundingClientRect();show(rect.right,rect.top+rect.height/2)});
+  title.addEventListener('blur',hideAwardPreview);
+  title.addEventListener('click',hideAwardPreview);
+});
+addEventListener('scroll',hideAwardPreview,{passive:true});
+addEventListener('resize',hideAwardPreview);
+document.addEventListener('keydown',event=>{if(event.key==='Escape')hideAwardPreview()});
