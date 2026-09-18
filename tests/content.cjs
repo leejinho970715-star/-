@@ -4,7 +4,9 @@ const path = require('node:path');
 const root = path.join(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 assert(!/faviog|favicon-generator|1OR2ymg7SXSJA9PBsSH4mOpVvsuBomlZ9/i.test(html));
-assert.equal((html.match(/class="project"/g) || []).length, 9);
+assert.equal((html.match(/class="project"/g) || []).length, 10);
+assert(html.includes('02 개인 프로젝트 <b>6</b>'));
+assert(html.includes('href="https://unusual-ago.vercel.app/"'));
 for (const match of html.matchAll(/(?:src|href|data-document)="(assets\/[^"]+)"/g)) {
   assert(fs.existsSync(path.join(root, match[1])), `Missing asset: ${match[1]}`);
 }
@@ -13,7 +15,7 @@ for (const url of ['https://gpters-khaki.vercel.app/', 'https://n-seoul-main.ver
 }
 for (const id of ['1Y1zDJps_9hbn9HsMFzslLdpoSL1ibTar', '1BS1de4a1T29yio-ib_vo8mzGgqly-SOj', '1F2LgAqJVbchIqUzNDiqAiSnE5XYNs1sI']) assert(html.includes(id));
 const titles = [...html.matchAll(/<div class="project-copy reveal"><span>[^<]+<\/span><h3>([^<]+)<\/h3>/g)].map(m => m[1]);
-assert.deepEqual(titles, ['LKBROTHERS','I-ONE Softbank','GPTers Renewal','N Seoul Tower','Space World','SYNAPSE LABS','CLOUD LABS','Airbnb Marketing','N서울타워 팀프로젝트']);
+assert.deepEqual(titles, ['LKBROTHERS','I-ONE Softbank','GPTers Renewal','N Seoul Tower','Space World','SYNAPSE LABS','CLOUD LABS','UNUSUAL AGO','Airbnb Marketing','N서울타워 팀프로젝트']);
 const directory = html.match(/<section class="internship-sites"[\s\S]*?<\/section>/)[0];
 const archive = html.match(/<div class="archive reveal">[^\n]+/)[0];
 assert(archive.includes('<span>KDT 프로젝트</span>'));
@@ -34,4 +36,4 @@ assert.deepEqual(directoryLinks, [
 ]);
 assert(html.indexOf('class="internship-sites"') > html.indexOf('id="internship-work"'));
 assert(html.indexOf('class="internship-sites"') < html.indexOf('id="personal-work"'));
-console.log('PASS: 9 projects, 7 company directory links, source order, assets, no FAVIOG references.');
+console.log('PASS: 10 projects, 7 company directory links, source order, assets, no FAVIOG references.');
